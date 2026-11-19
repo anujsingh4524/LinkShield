@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scan History — LinkShield</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 20px;
+           background: #0f172a; color: #e2e8f0; }
+    h1 { color: #38bdf8; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+    th { background: #1e293b; color: #94a3b8; text-transform: uppercase; font-size: 0.8rem; }
+    .red { color: #f87171; } .orange { color: #fb923c; } .green { color: #4ade80; }
+    a { color: #38bdf8; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>📜 Scan History</h1>
+  <a href="/">← Back to Scanner</a>
+
+  {% if records %}
+  <table>
+    <tr>
+      <th>#</th><th>URL</th><th>Score</th><th>Verdict</th><th>Scanned At</th>
+    </tr>
+    {% for r in records %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{ r.url }}</td>
+      <td>{{ r.risk_score }}/100</td>
+      <td class="
+        {% if r.risk_score >= 50 %}red
+        {% elif r.risk_score >= 20 %}orange
+        {% else %}green{% endif %}">
+        {{ r.verdict }}
+      </td>
+      <td>{{ r.scanned_at.strftime('%d-%m-%Y %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>Abhi tak koi scan nahi hua. <a href="/">Pehla scan karein</a>.</p>
+  {% endif %}
+</body>
+</html>
