@@ -2,3 +2,4 @@ flask
 flask-sqlalchemy
 curl_cffi
 beautifulsoup4
+gunicorn
